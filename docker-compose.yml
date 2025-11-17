@@ -1,0 +1,217 @@
+version: '3.8'
+
+services:
+  # ============================================================================
+  # PostgreSQL Database
+  # ============================================================================
+  postgres:
+    image: postgres:15-alpine
+    container_name: financial-analytics-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-healthcare_analytics}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - analytics-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================================
+  # Redis Cache (Optional - for production)
+  # ============================================================================
+  redis:
+    image: redis:7-alpine
+    container_name: financial-analytics-redis
+    restart: unless-stopped
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - analytics-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================================
+  # Backend Services
+  # ============================================================================
+
+  # API Gateway (Main Entry Point)
+  api-gateway:
+    build:
+      context: ./backend/api-gateway
+      dockerfile: ../../docker/Dockerfile.api-gateway
+    container_name: financial-analytics-gateway
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${API_GATEWAY_PORT:-4000}
+      AUTH_SERVICE_URL: http://auth-service:${AUTH_SERVICE_PORT:-4001}
+      ANALYTICS_SERVICE_URL: http://analytics-service:${ANALYTICS_SERVICE_PORT:-4002}
+      DATA_SERVICE_URL: http://data-service:${DATA_SERVICE_PORT:-4003}
+      REPORTING_SERVICE_URL: http://reporting-service:${REPORTING_SERVICE_PORT:-4004}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      RATE_LIMIT_WINDOW: ${RATE_LIMIT_WINDOW:-15m}
+      RATE_LIMIT_MAX_REQUESTS: ${RATE_LIMIT_MAX_REQUESTS:-100}
+    ports:
+      - "${API_GATEWAY_PORT:-4000}:${API_GATEWAY_PORT:-4000}"
+    depends_on:
+      - postgres
+      - redis
+      - auth-service
+      - analytics-service
+      - data-service
+      - reporting-service
+    networks:
+      - analytics-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${API_GATEWAY_PORT:-4000}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Auth Service
+  auth-service:
+    build:
+      context: ./backend/auth-service
+      dockerfile: ../../docker/Dockerfile.auth
+    container_name: financial-analytics-auth
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${AUTH_SERVICE_PORT:-4001}
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRATION: ${JWT_EXPIRATION:-1h}
+      JWT_REFRESH_EXPIRATION: ${JWT_REFRESH_EXPIRATION:-7d}
+    ports:
+      - "${AUTH_SERVICE_PORT:-4001}:${AUTH_SERVICE_PORT:-4001}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - analytics-network
+    volumes:
+      - ./backend/shared:/app/shared:ro
+
+  # Analytics Service
+  analytics-service:
+    build:
+      context: ./backend/analytics-service
+      dockerfile: ../../docker/Dockerfile.analytics
+    container_name: financial-analytics-analytics
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${ANALYTICS_SERVICE_PORT:-4002}
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_HOST: redis
+      REDIS_PORT: ${REDIS_PORT:-6379}
+    ports:
+      - "${ANALYTICS_SERVICE_PORT:-4002}:${ANALYTICS_SERVICE_PORT:-4002}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - analytics-network
+    volumes:
+      - ./backend/shared:/app/shared:ro
+
+  # Data Service
+  data-service:
+    build:
+      context: ./backend/data-service
+      dockerfile: ../../docker/Dockerfile.data
+    container_name: financial-analytics-data
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${DATA_SERVICE_PORT:-4003}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "${DATA_SERVICE_PORT:-4003}:${DATA_SERVICE_PORT:-4003}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - analytics-network
+    volumes:
+      - ./backend/shared:/app/shared:ro
+
+  # Reporting Service
+  reporting-service:
+    build:
+      context: ./backend/reporting-service
+      dockerfile: ../../docker/Dockerfile.reporting
+    container_name: financial-analytics-reporting
+    restart: unless-stopped
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      PORT: ${REPORTING_SERVICE_PORT:-4004}
+      DATABASE_URL: ${DATABASE_URL}
+      ANALYTICS_SERVICE_URL: http://analytics-service:${ANALYTICS_SERVICE_PORT:-4002}
+    ports:
+      - "${REPORTING_SERVICE_PORT:-4004}:${REPORTING_SERVICE_PORT:-4004}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      analytics-service:
+        condition: service_started
+    networks:
+      - analytics-network
+    volumes:
+      - ./backend/shared:/app/shared:ro
+      - report_exports:/app/exports
+
+  # ============================================================================
+  # Frontend
+  # ============================================================================
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+      args:
+        REACT_APP_API_URL: http://localhost:${API_GATEWAY_PORT:-4000}/api/v1
+    container_name: financial-analytics-frontend
+    restart: unless-stopped
+    environment:
+      PORT: ${FRONTEND_PORT:-3000}
+      REACT_APP_API_URL: http://localhost:${API_GATEWAY_PORT:-4000}/api/v1
+    ports:
+      - "${FRONTEND_PORT:-3000}:${FRONTEND_PORT:-3000}"
+    depends_on:
+      - api-gateway
+    networks:
+      - analytics-network
+
+# ============================================================================
+# Volumes
+# ============================================================================
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  report_exports:
+    driver: local
+
+# ============================================================================
+# Networks
+# ============================================================================
+networks:
+  analytics-network:
+    driver: bridge
