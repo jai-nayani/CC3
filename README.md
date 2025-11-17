@@ -394,23 +394,23 @@ Access: Single facility view
 ## 🖼️ Screenshots
 
 ### Dashboard Overview
-![Dashboard](docs/images/dashboard.png)
+![Dashboard](docs/images/dashboard.svg)
 *Real-time KPI cards with trend indicators and interactive charts*
 
 ### Revenue Analytics
-![Revenue](docs/images/revenue-analytics.png)
+![Revenue](docs/images/revenue-analytics.svg)
 *Detailed revenue breakdown with drill-down capabilities*
 
 ### A/R Aging Analysis
-![AR Aging](docs/images/ar-aging.png)
+![AR Aging](docs/images/ar-aging.svg)
 *Comprehensive accounts receivable aging buckets*
 
 ### Mock Power BI Reports
-![Power BI](docs/images/powerbi-reports.png)
+![Power BI](docs/images/powerbi-reports.svg)
 *Embedded analytical reports with interactive filtering*
 
 ### Export Options
-![Export](docs/images/export-options.png)
+![Export](docs/images/export-options.svg)
 *Download data as PDF, Excel, or CSV*
 
 ---

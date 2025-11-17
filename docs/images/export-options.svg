@@ -1,0 +1,109 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#30cfd0;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#330867;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="#f8f9fa"/>
+
+  <!-- Header -->
+  <rect width="1200" height="60" fill="url(#grad5)"/>
+  <text x="600" y="38" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">
+    Export Options - Download Data in Multiple Formats
+  </text>
+
+  <!-- Main Container -->
+  <rect x="100" y="120" width="1000" height="420" fill="white" stroke="#e0e0e0" stroke-width="2" rx="12"/>
+
+  <!-- Title -->
+  <text x="600" y="170" font-family="Arial, sans-serif" font-size="22" fill="#333" text-anchor="middle" font-weight="bold">
+    Export Dashboard Data
+  </text>
+
+  <text x="600" y="200" font-family="Arial, sans-serif" font-size="14" fill="#666" text-anchor="middle">
+    Choose your preferred format to download analytics data
+  </text>
+
+  <!-- Export Options Grid -->
+
+  <!-- PDF Export -->
+  <rect x="180" y="240" width="260" height="240" fill="#f9fafb" stroke="#e0e0e0" stroke-width="1" rx="8"/>
+  <rect x="220" y="270" width="180" height="120" fill="#ef4444" opacity="0.1" rx="6"/>
+
+  <!-- PDF Icon -->
+  <text x="310" y="340" font-family="Arial, sans-serif" font-size="60" fill="#ef4444" text-anchor="middle">📄</text>
+
+  <text x="310" y="420" font-family="Arial, sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">
+    PDF Export
+  </text>
+  <text x="310" y="442" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">
+    Dashboard snapshot with charts
+  </text>
+
+  <!-- Export PDF Button -->
+  <rect x="220" y="455" width="180" height="40" fill="#ef4444" rx="6"/>
+  <text x="310" y="480" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">
+    📥 Download PDF
+  </text>
+
+  <!-- Excel Export -->
+  <rect x="470" y="240" width="260" height="240" fill="#f9fafb" stroke="#e0e0e0" stroke-width="1" rx="8"/>
+  <rect x="510" y="270" width="180" height="120" fill="#10b981" opacity="0.1" rx="6"/>
+
+  <!-- Excel Icon -->
+  <text x="600" y="340" font-family="Arial, sans-serif" font-size="60" fill="#10b981" text-anchor="middle">📊</text>
+
+  <text x="600" y="420" font-family="Arial, sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">
+    Excel Export
+  </text>
+  <text x="600" y="442" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">
+    Formatted spreadsheet with formulas
+  </text>
+
+  <!-- Export Excel Button -->
+  <rect x="510" y="455" width="180" height="40" fill="#10b981" rx="6"/>
+  <text x="600" y="480" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">
+    📥 Download Excel
+  </text>
+
+  <!-- CSV Export -->
+  <rect x="760" y="240" width="260" height="240" fill="#f9fafb" stroke="#e0e0e0" stroke-width="1" rx="8"/>
+  <rect x="800" y="270" width="180" height="120" fill="#3b82f6" opacity="0.1" rx="6"/>
+
+  <!-- CSV Icon -->
+  <text x="890" y="340" font-family="Arial, sans-serif" font-size="60" fill="#3b82f6" text-anchor="middle">📋</text>
+
+  <text x="890" y="420" font-family="Arial, sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">
+    CSV Export
+  </text>
+  <text x="890" y="442" font-family="Arial, sans-serif" font-size="12" fill="#666" text-anchor="middle">
+    Raw data for external analysis
+  </text>
+
+  <!-- Export CSV Button -->
+  <rect x="800" y="455" width="180" height="40" fill="#3b82f6" rx="6"/>
+  <text x="890" y="480" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" font-weight="bold">
+    📥 Download CSV
+  </text>
+
+  <!-- Additional Options -->
+  <rect x="100" y="560" width="1000" height="1" fill="#e0e0e0"/>
+
+  <!-- Info Section -->
+  <text x="150" y="585" font-family="Arial, sans-serif" font-size="11" fill="#666">
+    ℹ️ Exports include all filtered data from the current date range and selected facilities
+  </text>
+
+  <!-- Schedule Export Link -->
+  <text x="950" y="585" font-family="Arial, sans-serif" font-size="11" fill="#667eea" text-decoration="underline" text-anchor="end">
+    ⚙️ Schedule Recurring Exports
+  </text>
+
+  <!-- Watermark -->
+  <text x="600" y="590" font-family="Arial, sans-serif" font-size="12" fill="#999" text-anchor="middle" opacity="0.6">
+    Placeholder - Actual export functionality will be added when application is built
+  </text>
+</svg>

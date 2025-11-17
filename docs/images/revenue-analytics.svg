@@ -1,0 +1,111 @@
+<svg width="1200" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f5576c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="600" fill="#f8f9fa"/>
+
+  <!-- Header -->
+  <rect width="1200" height="60" fill="url(#grad2)"/>
+  <text x="600" y="38" font-family="Arial, sans-serif" font-size="24" fill="white" text-anchor="middle" font-weight="bold">
+    Revenue Analytics - Detailed Breakdown
+  </text>
+
+  <!-- Left Panel: Revenue Summary -->
+  <rect x="50" y="100" width="350" height="450" fill="white" stroke="#e0e0e0" stroke-width="1" rx="8"/>
+  <text x="225" y="130" font-family="Arial, sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">
+    Revenue Summary
+  </text>
+
+  <!-- Revenue metrics -->
+  <text x="70" y="170" font-family="Arial, sans-serif" font-size="14" fill="#666">Gross Revenue:</text>
+  <text x="370" y="170" font-family="Arial, sans-serif" font-size="14" fill="#333" text-anchor="end" font-weight="bold">$12,500,000</text>
+
+  <text x="70" y="200" font-family="Arial, sans-serif" font-size="14" fill="#666">Contractual Adjustments:</text>
+  <text x="370" y="200" font-family="Arial, sans-serif" font-size="14" fill="#ef4444" text-anchor="end" font-weight="bold">-$2,300,000</text>
+
+  <text x="70" y="230" font-family="Arial, sans-serif" font-size="14" fill="#666">Net Revenue:</text>
+  <text x="370" y="230" font-family="Arial, sans-serif" font-size="14" fill="#10b981" text-anchor="end" font-weight="bold">$10,200,000</text>
+
+  <line x1="70" y1="250" x2="370" y2="250" stroke="#e0e0e0" stroke-width="1"/>
+
+  <!-- Facility Breakdown -->
+  <text x="225" y="280" font-family="Arial, sans-serif" font-size="16" fill="#333" text-anchor="middle" font-weight="bold">
+    By Facility
+  </text>
+
+  <text x="70" y="310" font-family="Arial, sans-serif" font-size="13" fill="#666">General Medical Center:</text>
+  <text x="370" y="310" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="end">$7,000,000</text>
+
+  <text x="70" y="340" font-family="Arial, sans-serif" font-size="13" fill="#666">Downtown Clinic:</text>
+  <text x="370" y="340" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="end">$2,200,000</text>
+
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="13" fill="#666">Riverside Hospital:</text>
+  <text x="370" y="370" font-family="Arial, sans-serif" font-size="13" fill="#333" text-anchor="end">$1,000,000</text>
+
+  <!-- Department Breakdown -->
+  <text x="225" y="410" font-family="Arial, sans-serif" font-size="16" fill="#333" text-anchor="middle" font-weight="bold">
+    Top Departments
+  </text>
+
+  <rect x="70" y="425" width="250" height="20" fill="#667eea" opacity="0.3" rx="2"/>
+  <rect x="70" y="425" width="200" height="20" fill="#667eea" opacity="0.7" rx="2"/>
+  <text x="75" y="440" font-family="Arial, sans-serif" font-size="11" fill="#333">Emergency Dept</text>
+
+  <rect x="70" y="455" width="250" height="20" fill="#f093fb" opacity="0.3" rx="2"/>
+  <rect x="70" y="455" width="150" height="20" fill="#f093fb" opacity="0.7" rx="2"/>
+  <text x="75" y="470" font-family="Arial, sans-serif" font-size="11" fill="#333">Cardiology</text>
+
+  <rect x="70" y="485" width="250" height="20" fill="#fbbf24" opacity="0.3" rx="2"/>
+  <rect x="70" y="485" width="120" height="20" fill="#fbbf24" opacity="0.7" rx="2"/>
+  <text x="75" y="500" font-family="Arial, sans-serif" font-size="11" fill="#333">Orthopedics</text>
+
+  <!-- Right Panel: Revenue Trend Chart -->
+  <rect x="430" y="100" width="720" height="450" fill="white" stroke="#e0e0e0" stroke-width="1" rx="8"/>
+  <text x="790" y="130" font-family="Arial, sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">
+    Monthly Revenue Trend
+  </text>
+
+  <!-- Line chart -->
+  <polyline points="480,450 540,420 600,400 660,380 720,360 780,340 840,320 900,310 960,295 1020,280 1080,270"
+            fill="none" stroke="#667eea" stroke-width="3"/>
+
+  <!-- Data points -->
+  <circle cx="480" cy="450" r="5" fill="#667eea"/>
+  <circle cx="540" cy="420" r="5" fill="#667eea"/>
+  <circle cx="600" cy="400" r="5" fill="#667eea"/>
+  <circle cx="660" cy="380" r="5" fill="#667eea"/>
+  <circle cx="720" cy="360" r="5" fill="#667eea"/>
+  <circle cx="780" cy="340" r="5" fill="#667eea"/>
+  <circle cx="840" cy="320" r="5" fill="#667eea"/>
+  <circle cx="900" cy="310" r="5" fill="#667eea"/>
+  <circle cx="960" cy="295" r="5" fill="#667eea"/>
+  <circle cx="1020" cy="280" r="5" fill="#667eea"/>
+  <circle cx="1080" cy="270" r="5" fill="#667eea"/>
+
+  <!-- Grid lines -->
+  <line x1="450" y1="270" x2="1100" y2="270" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+  <line x1="450" y1="360" x2="1100" y2="360" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+  <line x1="450" y1="450" x2="1100" y2="450" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+
+  <!-- Axes -->
+  <line x1="450" y1="160" x2="450" y2="500" stroke="#666" stroke-width="2"/>
+  <line x1="450" y1="500" x2="1100" y2="500" stroke="#666" stroke-width="2"/>
+
+  <!-- Month labels -->
+  <text x="480" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Jan</text>
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Mar</text>
+  <text x="720" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">May</text>
+  <text x="840" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Jul</text>
+  <text x="960" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Sep</text>
+  <text x="1080" y="520" font-family="Arial, sans-serif" font-size="11" fill="#666" text-anchor="middle">Nov</text>
+
+  <!-- Watermark -->
+  <text x="600" y="580" font-family="Arial, sans-serif" font-size="12" fill="#999" text-anchor="middle" opacity="0.6">
+    Placeholder - Actual screenshots will be added when application is built
+  </text>
+</svg>
