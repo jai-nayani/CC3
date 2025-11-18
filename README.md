@@ -24,6 +24,7 @@
 - [Tech Stack](#-tech-stack)
 - [Architecture](#-architecture)
 - [Quick Start](#-quick-start)
+- [Automation Scripts](#-automation-scripts)
 - [Documentation](#-documentation)
 - [Demo Credentials](#-demo-credentials)
 - [Screenshots](#-screenshots)
@@ -338,12 +339,81 @@ Once running, access the application at:
 
 ---
 
+## 🔧 Automation Scripts
+
+We've included helpful scripts to streamline your development workflow:
+
+### Quick Start Script
+
+Automated setup from zero to running in minutes:
+
+```bash
+./scripts/quick-start.sh
+```
+
+This script will:
+- ✅ Install all dependencies
+- ✅ Start PostgreSQL with Docker
+- ✅ Run database migrations
+- ✅ Generate Prisma client
+- ✅ Seed sample data (50,000+ claims)
+- ✅ Start all services
+
+### Build Verification
+
+Verify your installation is complete:
+
+```bash
+./scripts/verify-build.sh
+```
+
+Checks:
+- ✅ Node.js and npm versions
+- ✅ Project structure integrity
+- ✅ Configuration files
+- ✅ Docker files
+- ✅ Documentation completeness
+- ✅ TypeScript file counts
+
+### Health Check
+
+Monitor running services:
+
+```bash
+./scripts/health-check.sh
+```
+
+Verifies:
+- ✅ All 6 services are responding
+- ✅ PostgreSQL is accessible
+- ✅ Frontend is serving
+- ✅ Color-coded status output
+
+### Build Status Report
+
+See comprehensive project completion status:
+
+```bash
+cat BUILD_STATUS.md
+```
+
+Contains:
+- 📊 Complete project statistics
+- ✅ Component completion checklist
+- 📦 Git repository status
+- 🚀 Deployment readiness
+- 📈 Quality metrics
+
+---
+
 ## 📚 Documentation
 
 Comprehensive guides for every aspect of the platform:
 
 | Document | Description |
 |----------|-------------|
+| **[BUILD_STATUS.md](BUILD_STATUS.md)** | ⭐ Complete build status and project completion report |
+| **[QUICKSTART.md](QUICKSTART.md)** | 5-minute quick start guide with Docker Compose |
 | **[SETUP.md](docs/SETUP.md)** | Complete installation and configuration guide |
 | **[USER_GUIDE.md](docs/USER_GUIDE.md)** | How to use every feature of the application |
 | **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** | System design, data models, and technical decisions |
