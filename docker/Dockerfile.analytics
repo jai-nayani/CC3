@@ -1,0 +1,19 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY backend/shared /app/shared
+WORKDIR /app/shared
+RUN npm ci && npx prisma generate && npm run build
+WORKDIR /app/analytics-service
+COPY backend/analytics-service/package*.json ./
+RUN npm ci --only=production
+COPY backend/analytics-service .
+RUN npm run build
+FROM node:20-alpine
+WORKDIR /app
+COPY --from=builder /app/analytics-service/dist ./dist
+COPY --from=builder /app/analytics-service/node_modules ./node_modules
+COPY --from=builder /app/analytics-service/package.json ./package.json
+COPY --from=builder /app/shared/node_modules/@prisma ./node_modules/@prisma
+ENV NODE_ENV=production
+EXPOSE 4002
+CMD ["node", "dist/main.js"]
