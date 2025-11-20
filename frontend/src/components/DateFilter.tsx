@@ -4,7 +4,7 @@ import { subDays, subMonths, startOfMonth, endOfMonth } from 'date-fns';
 import { useFilters } from '../hooks/useFilters';
 
 const DateFilter: React.FC = () => {
-  const { filters, updateDateRange } = useFilters();
+  const { updateDateRange } = useFilters();
 
   const presets = [
     {

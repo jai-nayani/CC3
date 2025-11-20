@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, Typography, Box, Chip } from '@mui/material';
 import { TrendingUp, TrendingDown } from '@mui/icons-material';
 import { formatCurrency, formatPercentage, formatNumber, formatTrend } from '../utils/formatters';
+import { KPICardSkeleton } from './LoadingSkeleton';
 
 interface KPICardProps {
   title: string;
@@ -10,6 +11,7 @@ interface KPICardProps {
   format?: 'currency' | 'percentage' | 'number';
   icon?: React.ReactNode;
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'warning' | 'info';
+  loading?: boolean;
 }
 
 const KPICard: React.FC<KPICardProps> = ({
@@ -19,6 +21,7 @@ const KPICard: React.FC<KPICardProps> = ({
   format = 'number',
   icon,
   color = 'primary',
+  loading = false,
 }) => {
   const formatValue = (val: number) => {
     switch (format) {
@@ -33,6 +36,10 @@ const KPICard: React.FC<KPICardProps> = ({
   };
 
   const trendData = trend !== undefined ? formatTrend(trend) : null;
+
+  if (loading) {
+    return <KPICardSkeleton />;
+  }
 
   return (
     <Card

@@ -10,6 +10,7 @@ import {
   setUser,
 } from '../store/authSlice';
 import { authService, LoginCredentials, RegisterData } from '../services/authService';
+import { showToast } from '../utils/toast';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -24,9 +25,12 @@ export const useAuth = () => {
         dispatch(loginStart());
         const response = await authService.login(credentials);
         dispatch(loginSuccess(response));
+        showToast.success(`Welcome back, ${response.user.name}!`);
         navigate('/dashboard');
       } catch (err: any) {
-        dispatch(loginFailure(err.message || 'Login failed'));
+        const errorMessage = err.message || 'Login failed';
+        dispatch(loginFailure(errorMessage));
+        showToast.error(errorMessage);
         throw err;
       }
     },
@@ -39,9 +43,12 @@ export const useAuth = () => {
         dispatch(loginStart());
         const response = await authService.register(data);
         dispatch(loginSuccess(response));
+        showToast.success(`Account created successfully! Welcome, ${response.user.name}!`);
         navigate('/dashboard');
       } catch (err: any) {
-        dispatch(loginFailure(err.message || 'Registration failed'));
+        const errorMessage = err.message || 'Registration failed';
+        dispatch(loginFailure(errorMessage));
+        showToast.error(errorMessage);
         throw err;
       }
     },
@@ -51,8 +58,10 @@ export const useAuth = () => {
   const logout = useCallback(async () => {
     try {
       await authService.logout();
+      showToast.info('You have been logged out successfully');
     } catch (err) {
       console.error('Logout error:', err);
+      showToast.warning('Logged out (with errors)');
     } finally {
       dispatch(logoutAction());
       navigate('/login');

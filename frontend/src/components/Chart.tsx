@@ -16,6 +16,7 @@ import {
 } from 'recharts';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 import { formatCurrency, formatNumber } from '../utils/formatters';
+import { ChartSkeleton } from './LoadingSkeleton';
 
 interface ChartProps {
   title: string;
@@ -29,6 +30,7 @@ interface ChartProps {
   xAxisKey: string;
   height?: number;
   formatValue?: 'currency' | 'number';
+  loading?: boolean;
 }
 
 const CustomTooltip: React.FC<TooltipProps<any, any> & { formatValue?: 'currency' | 'number' }> = ({
@@ -78,7 +80,12 @@ const Chart: React.FC<ChartProps> = ({
   xAxisKey,
   height = 300,
   formatValue = 'number',
+  loading = false,
 }) => {
+  if (loading) {
+    return <ChartSkeleton />;
+  }
+
   const renderChart = () => {
     const commonProps = {
       data,

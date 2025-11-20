@@ -1,7 +1,10 @@
 import { createTheme } from '@mui/material/styles';
 
-export const theme = createTheme({
+type PaletteMode = 'light' | 'dark';
+
+export const getTheme = (mode: PaletteMode) => createTheme({
   palette: {
+    mode,
     primary: {
       main: '#1976d2',
       light: '#42a5f5',
@@ -34,14 +37,21 @@ export const theme = createTheme({
       light: '#03a9f4',
       dark: '#01579b',
     },
-    background: {
+    background: mode === 'light' ? {
       default: '#f5f5f5',
       paper: '#ffffff',
+    } : {
+      default: '#0a1929',
+      paper: '#001e3c',
     },
-    text: {
+    text: mode === 'light' ? {
       primary: 'rgba(0, 0, 0, 0.87)',
       secondary: 'rgba(0, 0, 0, 0.6)',
       disabled: 'rgba(0, 0, 0, 0.38)',
+    } : {
+      primary: '#fff',
+      secondary: 'rgba(255, 255, 255, 0.7)',
+      disabled: 'rgba(255, 255, 255, 0.5)',
     },
   },
   typography: {
@@ -162,3 +172,6 @@ export const theme = createTheme({
     },
   },
 });
+
+// Export light theme as default for backwards compatibility
+export const theme = getTheme('light');

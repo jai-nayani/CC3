@@ -25,9 +25,12 @@ import {
   Settings as SettingsIcon,
   Logout as LogoutIcon,
   AccountCircle,
+  Brightness4 as DarkModeIcon,
+  Brightness7 as LightModeIcon,
 } from '@mui/icons-material';
 import { useAuth } from '../hooks/useAuth';
 import { getInitials } from '../utils/formatters';
+import { useThemeMode } from '../contexts/ThemeContext';
 
 const drawerWidth = 240;
 
@@ -37,6 +40,7 @@ const Layout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout } = useAuth();
+  const { mode, toggleTheme } = useThemeMode();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -111,6 +115,14 @@ const Layout: React.FC = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             Healthcare Claims Dashboard
           </Typography>
+          <IconButton
+            onClick={toggleTheme}
+            color="inherit"
+            sx={{ mr: 1 }}
+            aria-label="toggle theme"
+          >
+            {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+          </IconButton>
           <IconButton
             onClick={handleMenuOpen}
             size="small"

@@ -2,7 +2,7 @@ import api from './api';
 import { AnalyticsFilters } from './analyticsService';
 
 export interface ExportFormat {
-  format: 'xlsx' | 'csv' | 'pdf';
+  format: 'xlsx' | 'csv' | 'pdf' | 'json';
   fileName?: string;
 }
 
